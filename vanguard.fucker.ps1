@@ -26,12 +26,13 @@ function Invoke-VanguardFucker {
       Exit-Script
     }
     Default {
-      Write-Host "Please type either 'e' or 'd' only"
+      Write-Host "Please type either 'e', 'd', or 'x' only"
       Invoke-VanguardFucker
     }
   }
 }
 
+# used so that ANY keypress is treated as input
 function Read-Key {
   while ($true) {
     return [Console]::ReadKey($true).keychar.ToString()
@@ -48,10 +49,10 @@ function Enable-Vanguard {
   sc.exe config vgc start=demand
   sc.exe config vgk start=system
   
-  Write-Host "Do you want to restart now? This will close all currently open programs and restart immediately (y/n | default = n)"
+  Write-Host "Do you want to restart now? This will close all currently open programs and restart immediately. You may lose data if you have not saved recently. (y/n | default = n)"
   $ret = (Read-Key).ToLower()
   if ($ret -eq "y") {
-    shutdown.exe /r /f /t 0
+    shutdown.exe /r /f /t 0 /d P:4:1
   }
   else {
     Write-Host "Restart cancelled"
